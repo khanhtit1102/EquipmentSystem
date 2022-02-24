@@ -8,9 +8,15 @@ use App\Floor;
 use App\Remind;
 use App\TrackingFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\VarDumper\VarDumper;
 
 class EquipmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +33,12 @@ class EquipmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $NewQRCode = $request->session()->get('Qrcode', '');
+        $Floors = Floor::all();
+        $Factories = Factory::all();
+        return view('equipment.create', compact('NewQRCode', 'Floors', 'Factories'));
     }
 
     /**
@@ -40,7 +49,21 @@ class EquipmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $equipment = new Equipment();
+        $equipment->Equip_Number = $request->Equip_Number ?? "";
+        $equipment->Label_Code = $request->Label_Code ?? "";
+        $equipment->Name = $request->Name ?? "";
+        $equipment->Location = $request->Location ?? "";
+        $equipment->Description = $request->Description ?? "";
+        $equipment->Storage_Location = $request->Storage_Location ?? "";
+        $equipment->Declaration_Number = $request->Declaration_Number ?? "";
+        $equipment->id_factory = $request->Factory ?? 1;
+        $equipment->id_floor = $request->Floor ?? 1;
+        if ($equipment->Name == "" || $equipment->Label_Code == "") {
+            return redirect()->route('equipment.create')->with('error_message', 'Please fill all required input!');
+        }
+        $equipment->save();
+        return redirect()->route('equipment.index');
     }
 
     /**
@@ -62,7 +85,15 @@ class EquipmentController extends Controller
      */
     public function edit($id)
     {
-        $Equipment = Equipment::findOrFail($id);
+        if(is_numeric($id)){
+            $Equipment = Equipment::findorfail($id);
+        }
+        else{
+            $Equipment = Equipment::where('Label_Code', '=', $id)->first();
+            if ($Equipment == null) {
+                return redirect()->route('equipment.create')->with('Qrcode', $id);
+            }
+        }
         $Floors = Floor::all();
         $Factories = Factory::all();
         return view('equipment.edit', compact('Equipment', 'Floors', 'Factories'));

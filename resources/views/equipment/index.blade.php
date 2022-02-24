@@ -18,7 +18,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Striped Table</h4>
+                <h4 class="card-title">Equipment Table</h4>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -40,12 +40,16 @@
                                 <td>{{$equipment->Floor->floor_name}}</td>
                                 <td>{{$equipment->Factory->factory_name}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-info btn-rounded btn-icon btn-sm">
-                                        <i class="mdi mdi-grease-pencil text-info"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-outline-danger btn-rounded btn-icon btn-sm">
-                                        <i class="mdi mdi-delete text-danger"></i>
-                                    </button>
+                                    <a href="{{route('equipment.edit', $equipment->id)}}">
+                                        <button type="button" class="btn btn-outline-info btn-rounded btn-icon btn-sm">
+                                            <i class="mdi mdi-grease-pencil text-info"></i>
+                                        </button>
+                                    </a>
+                                    <a href="{{route('equipment.destroy', $equipment->id)}}">
+                                        <button type="button" class="btn btn-outline-danger btn-rounded btn-icon btn-sm">
+                                            <i class="mdi mdi-delete text-danger"></i>
+                                        </button>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach

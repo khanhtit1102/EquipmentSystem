@@ -763,3 +763,81 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<script>
+    <?php
+    $arrContextOptions = array(
+        "ssl" => array(
+            "verify_peer" => false,
+            "verify_peer_name" => false,
+        ),
+    );
+    $link = route('trackingfile');
+    if (isset($_GET['fromdate']) && isset($_GET['todate'])) {
+        $link = route('trackingfile') . '/' . $_GET['fromdate'] . '/' . $_GET['todate'];
+    }
+    $json = file_get_contents($link, false, stream_context_create($arrContextOptions));
+    $obj = json_decode($json);
+    ?>
+    var ctx = document.getElementById("FileTrackingChart");
+    var chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: [<?php foreach ($obj as $key => $value) {
+                            if (strlen($value->model) <= 12 && strlen($value->model) > 10) {
+                                echo '\'' . $value->model . '\',';
+                            };
+                        } ?>],
+            datasets: [{
+                    type: "bar",
+                    backgroundColor: "rgba(54, 162, 235, 0.2)",
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderWidth: 1,
+                    label: "Total files",
+                    data: [<?php foreach ($obj as $key => $value) {
+                                if (strlen($value->model) <= 12 && strlen($value->model) > 10) {
+                                    echo $value->total_file . ',';
+                                };
+                            } ?>]
+                },
+                {
+                    type: "line",
+                    label: "Group size (MB)",
+                    data: [<?php foreach ($obj as $key => $value) {
+                                if (strlen($value->model) <= 12 && strlen($value->model) > 10) {
+                                    echo round($value->group_size / 1000) . ',';
+                                };
+                            } ?>],
+                    lineTension: 0,
+                    fill: false
+                }
+            ]
+        }
+    });
+    <?php
+    $link = route('factory.index');
+    $json = file_get_contents($link, false, stream_context_create($arrContextOptions));
+    $obj = json_decode($json);
+    ?>
+    var ctx = document.getElementById("factoryChart");
+    var chart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: [<?php foreach ($obj as $key => $value) {
+                            echo '\'' . $value->factory_name . '\',';
+                        } ?>],
+            datasets: [{
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
+                ],
+                hoverOffset: 20,
+                data: [<?php foreach ($obj as $key => $value) {
+                            echo count($value->equipment) . ',';
+                        } ?>]
+            }]
+        }
+    });
+</script>
+@endsection

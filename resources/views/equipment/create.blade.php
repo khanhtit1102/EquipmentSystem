@@ -9,17 +9,24 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Edit Equipment Code</h4>
-                <h4 class="card-title">{{$Equipment->Label_Code}}</h4>
-                <form class="form" action="{{route('equipment.update', $Equipment->id)}}" method="POST">
-                    {{ method_field('PUT') }}
+                <h4 class="card-title">Create New Equipment</h4>
+                @if($NewQRCode != '')
+                <h4 class="card-title">{{$NewQRCode}}</h4>
+                @endif
+                @if(Session::get('error_message'))
+                <div class="alert alert-danger" role="alert" id="alert">
+                    {{Session::get('error_message')}}
+                </div>
+                @endif
+                <form class="form" action="{{route('equipment.store')}}" method="POST">
+                    {{ method_field('POST') }}
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Equip Number</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{$Equipment->Equip_Number}}">
+                                    <input type="text" class="form-control" value="">
                                 </div>
                             </div>
                         </div>
@@ -27,7 +34,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Label Code</label>
                                 <div class="col-sm-9">
-                                    <input name="Label_Code" type="text" class="form-control" value="{{$Equipment->Label_Code}}" required>
+                                    <input name="Label_Code" type="text" class="form-control" value="{{$NewQRCode}}" required>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +44,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input name="Name" type="text" class="form-control" value="{{$Equipment->Name}}" required>
+                                    <input name="Name" type="text" class="form-control" value="" required>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +52,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Location</label>
                                 <div class="col-sm-9">
-                                    <input name="Location" type="text" class="form-control" value="{{$Equipment->Location}}">
+                                    <input name="Location" type="text" class="form-control" value="">
                                 </div>
                             </div>
                         </div>
@@ -57,7 +64,7 @@
                                 <div class="col-sm-9">
                                     <select name="Floor" class="form-control">
                                         @foreach($Floors as $key => $Floor)
-                                        <option value="{{$Floor->id}}" @if( $Floor->id == $Equipment->id_floor ) selected @endif>{{$Floor->floor_name}}</option>
+                                        <option value="{{$Floor->id}}">{{$Floor->floor_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -69,7 +76,7 @@
                                 <div class="col-sm-9">
                                     <select name="Factory" class="form-control">
                                         @foreach($Factories as $key => $Factory)
-                                        <option value="{{$Factory->id}}" @if($Factory->id == $Equipment->id_factory) selected @endif>{{$Factory->factory_name}}</option>
+                                        <option value="{{$Factory->id}}">{{$Factory->factory_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -81,7 +88,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Description</label>
                                 <div class="col-sm-9">
-                                    <input name="Description" type="text" class="form-control" value="{{$Equipment->Description}}">
+                                    <input name="Description" type="text" class="form-control" value="">
                                 </div>
                             </div>
                         </div>
@@ -89,7 +96,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Storage Location</label>
                                 <div class="col-sm-9">
-                                    <input name="Storage_Location" type="text" class="form-control" value="{{$Equipment->Storage_Location}}">
+                                    <input name="Storage_Location" type="text" class="form-control" value="">
                                 </div>
                             </div>
                         </div>
@@ -99,7 +106,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Declaration Number</label>
                                 <div class="col-sm-9">
-                                    <input name="Declaration_Number" type="text" class="form-control" value="{{$Equipment->Declaration_Number}}">
+                                    <input name="Declaration_Number" type="text" class="form-control" value="">
                                 </div>
                             </div>
                         </div>
@@ -115,5 +122,7 @@
 @endsection
 
 @section('js')
-
+<script>
+    $("#alert").show().delay(1000).fadeOut();
+</script>
 @endsection

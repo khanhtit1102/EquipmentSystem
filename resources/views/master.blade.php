@@ -24,11 +24,6 @@
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
     @yield('css')
 </head>
-<style>
-    .home-tab .chartjs-wrapper.FileTracking {
-        height: auto !important;
-    }
-</style>
 
 <body>
     <div class="container-scroller">
@@ -41,23 +36,23 @@
                     </button>
                 </div>
                 <div>
-                    <a class="navbar-brand brand-logo" href="index.html">
-                        <img src="images/logo.svg" alt="logo" />
+                    <a class="navbar-brand brand-logo" href="{{route('Homepage')}}">
+                        <img src="{{ asset('images/logo.svg') }}" alt="logo" />
                     </a>
-                    <a class="navbar-brand brand-logo-mini" href="index.html">
-                        <img src="images/logo-mini.svg" alt="logo" />
+                    <a class="navbar-brand brand-logo-mini" href="{{route('Homepage')}}">
+                        <img src="{{ asset('images/logo-mini.svg') }}" alt="logo" />
                     </a>
                 </div>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-top">
                 <ul class="navbar-nav">
                     <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                        <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
-                        <h3 class="welcome-sub-text">Your performance summary this week </h3>
+                        <h1 class="welcome-text">Hi, <span class="text-black fw-bold">{{Auth::user()->name ?? 'Guest'}}</span></h1>
+                        <h3 class="welcome-sub-text">Welcome to TE website system </h3>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown d-none d-lg-block">
+                    <!-- <li class="nav-item dropdown d-none d-lg-block">
                         <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
                             <a class="dropdown-item py-3">
@@ -97,7 +92,7 @@
                             </span>
                             <input type="text" class="form-control">
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <form class="search-form" action="#">
                             <i class="icon-search"></i>
@@ -143,10 +138,25 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="icon-bell"></i>
-                            <span class="count"></span>
+                        @if(Auth::check())
+                        <a class="nav-link count-indicator" href="#">
+                            <form action="{{route('voyager.logout')}}" method="POST">
+                                {{ method_field('POST') }}
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn logout" style="padding: unset;">
+                                    <i class="mdi mdi-logout"></i>
+                                    <span class="count"></span>
+                                    Logout
+                                </button>
+                            </form>
                         </a>
+                        @else
+                        <a class="nav-link count-indicator" href="{{route('voyager.login')}}">
+                            <i class="mdi mdi-login"></i>
+                            <span class="count"></span>
+                            Login
+                        </a>
+                        @endif
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown">
                             <a class="dropdown-item py-3">
                                 <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
@@ -155,7 +165,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
+                                    <img src="{{ asset('images/faces/face10.jpg') }}" alt="image" class="img-sm profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow py-2">
                                     <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
@@ -164,7 +174,7 @@
                             </a>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
+                                    <img src="{{ asset('images/faces/face12.jpg') }}" alt="image" class="img-sm profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow py-2">
                                     <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
@@ -173,7 +183,7 @@
                             </a>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="images/faces/face1.jpg" alt="image" class="img-sm profile-pic">
+                                    <img src="{{ asset('images/faces/face1.jpg') }}" alt="image" class="img-sm profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow py-2">
                                     <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
@@ -184,10 +194,10 @@
                     </li>
                     <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="Profile image"> </a>
+                            <img class="img-xs rounded-circle" src="{{ asset('images/faces/face8.jpg') }}" alt="Profile image"> </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                             <div class="dropdown-header text-center">
-                                <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
+                                <img class="img-md rounded-circle" src="{{ asset('images/faces/face8.jpg') }}" alt="Profile image">
                                 <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
                                 <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
                             </div>
@@ -361,75 +371,6 @@
     <!-- End custom js for this page-->
     <!-- Js for chart -->
     @yield('js')
-    <script>
-        <?php
-        $link = 'http://localhost/Equipment/public/api/v1/file-tracking';
-        if (isset($_GET['fromdate']) && isset($_GET['todate'])) {
-            $link = 'http://localhost/Equipment/public/api/v1/file-tracking/' . $_GET['fromdate'] . '/' . $_GET['todate'];
-        }
-        $json = file_get_contents($link);
-        $obj = json_decode($json);
-        ?>
-        var ctx = document.getElementById("FileTrackingChart");
-        var chart = new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: [<?php foreach ($obj as $key => $value) {
-                                if (strlen($value->model) <= 12 && strlen($value->model) > 10) {
-                                    echo '\'' . $value->model . '\',';
-                                };
-                            } ?>],
-                datasets: [{
-                        type: "bar",
-                        backgroundColor: "rgba(54, 162, 235, 0.2)",
-                        borderColor: "rgba(54, 162, 235, 1)",
-                        borderWidth: 1,
-                        label: "Total files",
-                        data: [<?php foreach ($obj as $key => $value) {
-                                    if (strlen($value->model) <= 12 && strlen($value->model) > 10) {
-                                        echo $value->total_file . ',';
-                                    };
-                                } ?>]
-                    },
-                    {
-                        type: "line",
-                        label: "Group size (MB)",
-                        data: [<?php foreach ($obj as $key => $value) {
-                                    if (strlen($value->model) <= 12 && strlen($value->model) > 10) {
-                                        echo round($value->group_size / 1000) . ',';
-                                    };
-                                } ?>],
-                        lineTension: 0,
-                        fill: false
-                    }
-                ]
-            }
-        });
-        <?php
-        $link = route('factory.index');
-        $json = file_get_contents($link);
-        $obj = json_decode($json);
-        ?>
-        var ctx = document.getElementById("factoryChart");
-        var chart = new Chart(ctx, {
-            type: "doughnut",
-            data: {
-                labels: [<?php foreach ($obj as $key => $value) {
-                                echo '\'' . $value->factory_name . '\',';
-                            } ?>],
-                datasets: [{
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)'
-                    ],
-                    hoverOffset: 20,
-                    data: [<?php foreach ($obj as $key => $value) {
-                                echo count($value->equipment) . ',';
-                            } ?>]
-                }]
-            }
-        });
-    </script>
     <!-- End Js for chart -->
 </body>
 

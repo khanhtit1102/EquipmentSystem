@@ -123,6 +123,6 @@
 
 @section('js')
 <script>
-    $("#alert").show().delay(1000).fadeOut();
+    $("#alert").show().delay(1500).fadeOut();
 </script>
 @endsection

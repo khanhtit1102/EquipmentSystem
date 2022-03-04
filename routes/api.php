@@ -31,6 +31,6 @@ Route::group(['prefix' => 'v1'], function () {
         return App\TrackingFile::select('model', DB::raw('sum(file_size) as group_size, COUNT(model) as total_file'))->where('created_at', '>=', $fromdate)->where('created_at', '<', $todate)->groupBy('model')->limit(10)->orderby('group_size', 'desc')->get();
     })->name('trackingfilewithdate');
 
-    Route::resource('/equipment', EquipmentController::class);
+    // Route::resource('/equipment', EquipmentController::class);
     Route::resource('/factory', FactoryController::class);
 });

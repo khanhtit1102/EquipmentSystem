@@ -86,17 +86,17 @@
                                                 <div class="row">
                                                     <div class="col-4">
                                                         <div id="datepicker" class="input-group date datepicker navbar-date-picker">
-                                                            <input type="datetime-local" name="fromdate" class="form-control fromdate" value="{{isset($_GET['fromdate']) ? $_GET['fromdate'] : ''}}">
+                                                            <input type="datetime-local" name="fromdate" class="form-control fromdate" required value="{{isset($_GET['fromdate']) ? $_GET['fromdate'] : ''}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
                                                         <div id="datepicker" class="input-group date datepicker navbar-date-picker">
-                                                            <input type="datetime-local" name="todate" class="form-control todate" value="{{isset($_GET['todate']) ? $_GET['todate'] : ''}}">
+                                                            <input type="datetime-local" name="todate" class="form-control todate" required value="{{isset($_GET['todate']) ? $_GET['todate'] : ''}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
                                                         <button type="submit" class="btn btn-info">Filter</button>
-                                                        <a href="{{asset('')}}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                                                        <a href="{{route('Homepage')}}"><button type="button" class="btn btn-danger">Cancel</button></a>
                                                     </div>
                                                 </div>
                                             </form>

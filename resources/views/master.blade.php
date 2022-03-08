@@ -93,7 +93,7 @@
                             <input type="text" class="form-control">
                         </div>
                     </li> -->
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <form class="search-form" action="#">
                             <i class="icon-search"></i>
                             <input type="search" class="form-control" placeholder="Search Here" title="Search here">
@@ -136,7 +136,7 @@
                                 </div>
                             </a>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item dropdown">
                         @if(Auth::check())
                         <a class="nav-link count-indicator" href="#">
@@ -252,9 +252,24 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('equipment.index')}}">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                             <i class="menu-icon mdi mdi-layers-outline"></i>
                             <span class="menu-title">Equipment</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('equipment.index')}}">Equipment Manager</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="">Import</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="">Export</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-category">Admin system only</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('voyager.dashboard')}}">
+                            <i class="menu-icon mdi mdi-layers-outline"></i>
+                            <span class="menu-title">Admin Panel</span>
                         </a>
                     </li>
                 </ul>

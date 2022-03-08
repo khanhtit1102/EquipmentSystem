@@ -134,6 +134,7 @@ class EquipmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Equipment::findOrFail($id)->delete();
+        return redirect()->route('equipment.index');
     }
 }

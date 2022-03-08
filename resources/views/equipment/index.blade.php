@@ -28,7 +28,7 @@
                                 <th>Location</th>
                                 <th>Floor</th>
                                 <th>Factory</th>
-                                <th></th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,11 +45,13 @@
                                             <i class="mdi mdi-grease-pencil text-info"></i>
                                         </button>
                                     </a>
-                                    <a href="{{route('equipment.destroy', $equipment->id)}}">
-                                        <button type="button" class="btn btn-outline-danger btn-rounded btn-icon btn-sm">
+                                    <form action="{{route('equipment.destroy', $equipment->id)}}" method="POST">
+                                        {{ method_field('delete') }}
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-outline-danger btn-rounded btn-icon btn-sm" onclick="return confirm(' Are you sure to delete them?');">
                                             <i class="mdi mdi-delete text-danger"></i>
                                         </button>
-                                    </a>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

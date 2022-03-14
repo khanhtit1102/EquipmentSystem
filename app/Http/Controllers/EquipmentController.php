@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Equipment;
+use App\Exports\EquipmentsExport;
 use App\Factory;
 use App\Floor;
 use App\Remind;
@@ -75,7 +76,7 @@ class EquipmentController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**

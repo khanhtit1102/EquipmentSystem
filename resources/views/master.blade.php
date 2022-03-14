@@ -260,8 +260,8 @@
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('equipment.index')}}">Equipment Manager</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="">Import</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="">Export</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('importdata.equipment')}}">Import</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('exportdata.equipment')}}">Export</a></li>
                             </ul>
                         </div>
                     </li>

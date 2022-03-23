@@ -32,7 +32,7 @@ Route::group(['prefix' => 'export'], function () {
 
 Route::group(['prefix' => 'import'], function () {
     Route::get('/equipment', 'App\Http\Controllers\ImportDataController@Equipments')->name('importdata.equipment');
-    Route::post('/equipment/upload', 'App\Http\Controllers\ImportDataController@EquipmentUpload')->name('importdata.equipmentupload');
+    Route::post('/equipment', 'App\Http\Controllers\ImportDataController@EquipmentUpload')->name('importdata.equipmentupload');
 });
 
 Route::group(['prefix' => 'admin'], function () {

@@ -4,26 +4,35 @@ namespace App\Imports;
 
 use App\Equipment;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
-class EquipmentsImport implements ToModel
+HeadingRowFormatter::default('none');
+
+class EquipmentsImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
     public function model(array $row)
     {
         return new Equipment([
-            'Equip_Number'          => $row[0],
-            'Label_Code'            => $row[1],
-            'Name'                  => $row[2],
-            'Location'              => $row[3],
-            'Description'           => $row[4],
-            'Storage_Location'      => $row[5],
-            'Declaration_Number'    => $row[6],
-            'id_factory'            => $row[7],
-            'id_floor'              => $row[8],
+            'Equip_Number'          => $row['Equipment Number'],
+            'Label_Code'            => $row['Label Code'],
+            'Name'                  => $row['Name'],
+            'Location'              => $row['Location'],
+            'Description'           => $row['Description'],
+            'Storage_Location'      => $row['Storage_Location'],
+            'Declaration_Number'    => $row['Declaration_Number'],
+            'id_factory'            => $row['Factory'],
+            'id_floor'              => $row['Floor'],
         ]);
+    }
+    public function headingRow(): int
+    {
+        return 1;
     }
 }

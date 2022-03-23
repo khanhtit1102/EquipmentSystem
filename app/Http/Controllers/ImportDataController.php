@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\EquipmentsImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 
 class ImportDataController extends Controller
 {
@@ -15,12 +16,16 @@ class ImportDataController extends Controller
     public function EquipmentUpload(Request $request)
     {
         $validated = $request->validate([
-            'file' => 'required|mimes:csv',
+            'file' => 'required',
         ]);
         if ($request->hasFile('file')) {
-
-            dd($request);
-            Excel::import(new EquipmentsImport, 'users.xlsx');
+            Excel::import(new EquipmentsImport, request()->file);
+            $failures = "File import completed!";
         }
+        else{
+            $failures = "File not found or wrong format!";
+        }
+        return redirect()->route('importdata.equipment')->withErrors(['failures' => $failures]);;
+       
     }
 }

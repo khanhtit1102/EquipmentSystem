@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class ImportDataController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function Equipments()
     {
         return view('equipment.import');

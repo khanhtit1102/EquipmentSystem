@@ -17,7 +17,7 @@
                 <h4 class="card-title">Import Equipment </h4>
                 <blockquote class="blockquote blockquote-primary">
                     <p>Make sure your excel is correct format. If not, please download the Example File bellow.</p>
-                    <footer class="blockquote-footer"><a href="" class="link">Example-File.xlsx</a></footer>
+                    <footer class="blockquote-footer"><a href="{{asset('example/Example-Import-File.xlsx')}}" class="link">Example-Import-File.xlsx</a></footer>
                 </blockquote>
                 <form class="form" action="{{route('importdata.equipmentupload')}}" method="POST" enctype="multipart/form-data">
                     {{ method_field('POST') }}

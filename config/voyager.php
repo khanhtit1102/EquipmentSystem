@@ -231,6 +231,9 @@ return [
           'image/bmp',
           'video/mp4',
           'text/plain',
+          'text/csv',
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ],
         //Path for media-manager. Relative to the filesystem.
         'path'                => '/',
